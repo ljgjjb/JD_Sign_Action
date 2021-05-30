@@ -13,8 +13,6 @@ const cookie = process.env.JD_COOKIE
 const dual_cookie = process.env.JD_DUAL_COOKIE
 // Server酱SCKEY
 const push_key = process.env.PUSH_KEY
-//Cool推SKEY
-const push_cool = process.env.COOL_KEY
 
 // 京东脚本文件
 const js_url = 'https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js'
@@ -78,7 +76,6 @@ function sendNotificationIfNeed() {
 
   // 去除末尾的换行
   let SCKEY = push_key.replace(/[\r\n]/g,"")
-  let SCKEYCOOL = push_cool.replace(/[\r\n]/g,"")
 
   const options ={
     uri:  `https://sc.ftqq.com/${SCKEY}.send`,
@@ -87,29 +84,8 @@ function sendNotificationIfNeed() {
     method: 'POST'
   }
   
-  const optionscool ={
-    uri:  `https://push.xuthus.cc/send/${SCKEYCOOL}`,
-    form: { text, desp },
-    json: true,
-    method: 'POST'
-  }
 
   rp.post(options).then(res=>{
-    const code = res['errno'];
-    if (code == 0) {
-      console.log("通知发送成功，任务结束！")
-    }
-    else {
-      console.log(res);
-      console.log("通知发送失败，任务中断！")
-      fs.writeFileSync(error_path, JSON.stringify(res), 'utf8')
-    }
-  }).catch((err)=>{
-    console.log("通知发送失败，任务中断！")
-    fs.writeFileSync(error_path, err, 'utf8')
-  })
-
-rp.post(optionscool).then(res=>{
     const code = res['errno'];
     if (code == 0) {
       console.log("通知发送成功，任务结束！")
