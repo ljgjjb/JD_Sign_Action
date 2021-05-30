@@ -78,7 +78,7 @@ function sendNotificationIfNeed() {
 
   // 去除末尾的换行
   let SCKEY = push_key.replace(/[\r\n]/g,"")
-  let SCKEY_cool = push_cool.replace(/[\r\n]/g,"")
+  let SCKEYCOOL = push_cool.replace(/[\r\n]/g,"")
 
   const options ={
     uri:  `https://sc.ftqq.com/${SCKEY}.send`,
@@ -87,8 +87,8 @@ function sendNotificationIfNeed() {
     method: 'POST'
   }
   
-  const options_cool ={
-    uri:  `https://push.xuthus.cc/send/${SCKEY_cool}`,
+  const optionscool ={
+    uri:  `https://push.xuthus.cc/send/${SCKEYCOOL}`,
     form: { text, desp },
     json: true,
     method: 'POST'
@@ -110,7 +110,7 @@ function sendNotificationIfNeed() {
   })
 }
 
-rp.post(options_cool).then(res=>{
+rp.post(optionscool).then(res=>{
     const code = res['errno'];
     if (code == 0) {
       console.log("通知发送成功，任务结束！")
